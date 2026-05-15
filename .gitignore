@@ -34,3 +34,6 @@ temp/
 # Environment variables
 .env
 .env.*
+
+# Documentation
+docs/
