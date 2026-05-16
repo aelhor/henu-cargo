@@ -1,6 +1,6 @@
 # henu-cargo
 
-[![CI](https://github.com/aelhor/node-stream-ingestion/actions/workflows/ci.yml/badge.svg)](https://github.com/aelhor/node-stream-ingestion/actions/workflows/ci.yml)
+[![CI](https://github.com/aelhor/henu-cargo/actions/workflows/ci.yml/badge.svg)](https://github.com/aelhor/henu-cargo/actions/workflows/ci.yml)
 
 Named after the sacred Nile cargo boat of ancient Egypt, **henu-cargo** carries your data streams safely from source to sink — backpressure, resource cleanup, cancellation, and ordered parallel processing via worker threads, all with zero dependencies.
 

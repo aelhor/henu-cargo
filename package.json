@@ -33,12 +33,12 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aelhor/node-stream-ingestion.git"
+    "url": "git+https://github.com/aelhor/henu-cargo.git"
   },
   "bugs": {
-    "url": "https://github.com/aelhor/node-stream-ingestion/issues"
+    "url": "https://github.com/aelhor/henu-cargo/issues"
   },
-  "homepage": "https://github.com/aelhor/node-stream-ingestion#readme",
+  "homepage": "https://github.com/aelhor/henu-cargo#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^22.10.2",
