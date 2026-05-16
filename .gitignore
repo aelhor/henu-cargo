@@ -35,5 +35,9 @@ temp/
 .env
 .env.*
 
+# Test fixtures (generated at runtime)
+*.bin
+output.dat
+
 # Documentation
 docs/

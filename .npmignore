@@ -1,2 +1,14 @@
-dist/tests
-dist-tests/tests
+src/
+tests/
+docs/
+dist-tests/
+examples/
+benchmarks/
+*.ts
+!*.d.ts
+tsconfig.json
+tsconfig.test.json
+*.bin
+output.dat
+.git/
+.gitignore

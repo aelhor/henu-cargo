@@ -4,5 +4,5 @@
     "outDir": "dist-tests",
     "noEmit": false
   },
-  "include": ["tests"]
+  "include": ["tests", "src", "benchmarks"]
 }

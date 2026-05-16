@@ -1,20 +1,29 @@
 {
   "name": "stream-ingestion",
   "version": "1.0.0",
-  "description": "efficient, backpressure-aware ingestion and delivery of large data streams.  ",
+  "description": "Stop rewriting the same stream boilerplate. stream-ingestion handles the hard parts — backpressure, resource cleanup, cancellation, and ordered parallel processing via worker threads — so you can focus on your actual logic. Pluggable sink architecture, AbortSignal support, constant memory, zero dependencies. Built for ETL, file processing, and data-heavy workloads.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    }
+  },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc",
     "build:test": "tsc -p tsconfig.test.json",
     "dev": "tsc --watch",
     "clean": "node -e \"const fs=require('node:fs'); fs.rmSync('dist',{recursive:true,force:true}); fs.rmSync('dist-tests',{recursive:true,force:true});\"",
-    "test": "npm run build:test && node dist-tests/tests/ingestion.spec.js",
-    "test:all": "npm run build && npm run build:test && node -e \"const fs=require('node:fs'); const path=require('node:path'); const dir=path.join('dist-tests','tests'); const files=fs.readdirSync(dir).filter(f=>f.endsWith('.js')); if(!files.length){ console.error('No test files found in '+dir); process.exit(1);} for (const f of files){ require(path.resolve(dir,f)); }\"",
+    "test": "npm run build:test && node --test dist-tests/tests/*.js",
+    "test:all": "npm run build && npm run build:test && node --test dist-tests/tests/*.js",
     "test:upload": "npm run build && node tests/run-upload.js",
+    "bench": "npm run build && npm run build:test && node dist-tests/benchmarks/run-all.js",
     "prepublishOnly": "npm run build"
   },
   "engines": {
@@ -22,10 +31,17 @@
   },
   "author": "aelhor",
   "license": "ISC",
-  "dependencies": {
-    "typescript": "^5.9.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aelhor/node-stream-ingestion.git"
   },
+  "bugs": {
+    "url": "https://github.com/aelhor/node-stream-ingestion/issues"
+  },
+  "homepage": "https://github.com/aelhor/node-stream-ingestion#readme",
+  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^22.10.2"
+    "@types/node": "^22.10.2",
+    "typescript": "^5.9.3"
   }
 }
