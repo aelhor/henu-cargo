@@ -1,7 +1,7 @@
-// test/manual-fs-sink.ts
+// tests/manual/fs-sink-test.ts
 import { Readable } from "node:stream";
-import { ingestStream } from "../src/core/ingestStream";
-import { createFsSink } from "../src/sinks/fsSink";
+import { ingestStream } from "../../src/core/ingest-stream";
+import { createFsSink } from "../../src/sinks/fs-sink";
 
 async function main() {
   const source = Readable.from([

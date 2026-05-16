@@ -3,10 +3,10 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import { Readable } from 'node:stream';
-import { ingestStream } from '../src/core/ingestStream';
-import { transform } from 'typescript';
+import { ingestStream } from '../src/core/ingest-stream';
 
-test('Milestone 5: Should NOT write to sink if aborted during transform', async () => {
+
+test('Should NOT write to sink if aborted during transform', async () => {
     const abortController = new AbortController();
     let writeCount = 0;
 
@@ -41,7 +41,7 @@ test('Milestone 5: Should NOT write to sink if aborted during transform', async 
 });
 
 
-test('Milestone 5: Should NOT include bytes when transforms return null', async () => {
+test('Should NOT include bytes when transforms return null', async () => {
     const abortController = new AbortController();
     let writeCount = 0;
 
@@ -74,7 +74,7 @@ test('Milestone 5: Should NOT include bytes when transforms return null', async 
 });
 
 
-test('Milestone 5: Should handle transform errors', async () => {
+test('Should handle transform errors', async () => {
     const abortController = new AbortController();
     let writeCount = 0;
 

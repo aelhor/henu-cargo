@@ -1,9 +1,10 @@
 import { Readable } from "node:stream";
+import test from "node:test";
 import assert from "node:assert";
-import { ingestStream } from "../src/core/ingestStream";
-import { IngestionSink } from "../src/sinks/IngestionSink";
+import { ingestStream } from "../src/core/ingest-stream";
+import { IngestionSink } from "../src/sinks/Ingestion-sink";
 
-async function run() {
+test("Basic ingestion writes all chunks, finalizes, and reports bytes", async () => {
   const received: Buffer[] = [];
   let finalized = false;
   let aborted = false;
@@ -27,17 +28,8 @@ async function run() {
 
   const result = await ingestStream(source, sink);
 
-  // assertions
   assert.strictEqual(received.map(b => b.toString()).join(""), "ab");
   assert.strictEqual(finalized, true);
   assert.strictEqual(aborted, false);
   assert.strictEqual(result.totalBytes, 2);
-
-  console.log("✅ ingestion test passed");  
-}
-
-run().catch(err => {
-  console.error("❌ ingestion test failed");
-  console.error(err);
-  process.exit(1);
 });

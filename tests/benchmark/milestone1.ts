@@ -3,8 +3,8 @@
 import { randomBytes } from "crypto";
 import fs from "fs";
 import { performance } from "perf_hooks";
-import { IngestionSink } from "../../src/sinks/IngestionSink";
-import { ingestStream } from "../../src/core/ingestStream";
+import { IngestionSink } from "../../src/sinks/Ingestion-sink";
+import { ingestStream } from "../../src/core/ingest-stream";
 
 const FILE_PATH = "./large_file_2.bin";
 const ONE_GB = 1024 * 1024 * 1024;

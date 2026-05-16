@@ -1,26 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert';
-
-import { createReadStream, writeFileSync, existsSync } from 'node:fs';
-import { ingestStream } from '../src/core/ingest-stream';
 import { Readable } from 'node:stream';
+import { ingestStream } from '../src/core/ingest-stream';
 
-const TEST_FILE = './test_file_10mb.bin';
-
-test.before(() => {
-    if (!existsSync(TEST_FILE)) {
-        writeFileSync(TEST_FILE, Buffer.alloc(1024 * 1024));
+function generateChunks(sizeMB: number): Buffer[] {
+    const chunkSize = 1024 * 1024;
+    const chunks: Buffer[] = [];
+    for (let i = 0; i < sizeMB; i++) {
+        chunks.push(Buffer.alloc(chunkSize, i % 256));
     }
-});
+    return chunks;
+}
 
-
-test('Milestone 3: Engine handles Sink failure gracefully', async (t) => {
-    const source = createReadStream('./test_file_10mb.bin');
+test('Engine handles Sink failure gracefully', async (t) => {
+    const source = Readable.from(generateChunks(10));
     let abortCalled = false;
 
     const chaosSink = {
         write: async (chunk: Buffer) => {
-            // Simulate a failure after some data
             throw new Error('DATABASE_OFFLINE');
         },
         finalize: async () => {
@@ -34,21 +31,17 @@ test('Milestone 3: Engine handles Sink failure gracefully', async (t) => {
 
     const result = await ingestStream(source, chaosSink);
 
-    // ASSERTIONS
     assert.strictEqual(result.status, 'failed', 'The engine should return failed status');
     assert.strictEqual(result.error?.message, 'DATABASE_OFFLINE', 'The engine should include the sink error');
     assert.ok(abortCalled, 'The engine should call sink.abort()');
-
-    // THE MOST IMPORTANT CHECK:
     assert.strictEqual(source.destroyed, true, 'The SOURCE stream must be destroyed after an error');
 });
 
 
-test('Milestone 3: Should destroy source even if validation fails', async (t) => {
-    const source = createReadStream('./test_file_10mb.bin');
+test('Should destroy source even if validation fails', async (t) => {
+    const source = Readable.from(generateChunks(10));
 
     try {
-        // Passing null as sink to trigger validation error
         await ingestStream(source, null as any);
     } catch (err) {
         // expected
@@ -57,7 +50,7 @@ test('Milestone 3: Should destroy source even if validation fails', async (t) =>
     assert.strictEqual(source.destroyed, true, 'Source must be destroyed even if params were invalid');
 });
 
-test('Milestone 3: Should handle source errors', async (t) => {
+test('Should handle source errors', async (t) => {
     const brokenSource = new Readable({
         read: function () {
             this.push('some data');

@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { ingestStream } from '../src/core/ingestStream';
+import { ingestStream } from '../src/core/ingest-stream';
 import { Readable } from 'node:stream';
-import { IngestionSink } from '../src/sinks/IngestionSink';
+import { IngestionSink } from '../src/sinks/Ingestion-sink';
 
-test('milestone 4: Should stop immediately when aborted mid-write', async (t) => {
+test('Should stop immediately when aborted mid-write', async (t) => {
     // craete a slow sink
     const slowSink: IngestionSink = {
         write: async (chunk: Buffer) => {

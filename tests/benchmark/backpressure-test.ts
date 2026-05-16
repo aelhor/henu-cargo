@@ -1,6 +1,5 @@
-import { ingestStream } from "../../src/core/ingestStream";
-import { brokenIngestStream } from "../../src/core/ingest-stream-broken";
-import { createSlowSink } from "../../src/sinks/slowsink";
+import { ingestStream } from "../../src/core/ingest-stream";
+import { createSlowSink } from "../../src/sinks/slow-sink";
 
 import fs from "fs";
 import { performance } from "perf_hooks";
