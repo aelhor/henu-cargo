@@ -1,21 +1,21 @@
-# stream-ingestion
+# henu
 
 [![CI](https://github.com/aelhor/node-stream-ingestion/actions/workflows/ci.yml/badge.svg)](https://github.com/aelhor/node-stream-ingestion/actions/workflows/ci.yml)
 
-Stop rewriting the same stream boilerplate. **stream-ingestion** handles the hard parts — backpressure, resource cleanup, cancellation, and ordered parallel processing via worker threads — so you can focus on your actual logic.
+Named after the sacred Nile cargo boat of ancient Egypt, **henu** carries your data streams safely from source to sink — backpressure, resource cleanup, cancellation, and ordered parallel processing via worker threads, all with zero dependencies.
 
 Pluggable sink architecture, AbortSignal support, constant memory, zero dependencies. Built for ETL, file processing, and data-heavy workloads.
 
 ## Install
 
 ```bash
-npm install stream-ingestion
+npm install henu
 ```
 
 ## Quick Start
 
 ```typescript
-import { ingestStream, createFsSink } from 'stream-ingestion';
+import { ingestStream, createFsSink } from 'henu';
 import { createReadStream } from 'node:fs';
 
 const source = createReadStream('large-file.bin');
@@ -37,7 +37,7 @@ Every Node.js project that handles large streams eventually writes the same mess
 - Leaking resources on failure → production memory leaks
 - CPU-heavy transforms block the event loop → server becomes unresponsive
 
-**stream-ingestion** solves all of this in a single function call. It gives you a constant memory footprint regardless of file size, proper resource cleanup on every path (success, error, abort), and optional worker-thread parallelism that preserves chunk order.
+**henu** solves all of this in a single function call. It gives you a constant memory footprint regardless of file size, proper resource cleanup on every path (success, error, abort), and optional worker-thread parallelism that preserves chunk order.
 
 ## Features
 
@@ -56,7 +56,7 @@ Every Node.js project that handles large streams eventually writes the same mess
 Process each chunk on the main thread, one at a time:
 
 ```typescript
-import { ingestStream } from 'stream-ingestion';
+import { ingestStream } from 'henu';
 import { createReadStream } from 'node:fs';
 
 const sink = {
@@ -84,7 +84,7 @@ const result = await ingestStream(createReadStream('data.csv'), sink, {
 Offload CPU-heavy transforms to a worker pool. Chunks are processed out of order by workers but **written to the sink in the original order**:
 
 ```typescript
-import { ingestStream } from 'stream-ingestion';
+import { ingestStream } from 'henu';
 import path from 'node:path';
 import os from 'node:os';
 
@@ -112,7 +112,7 @@ module.exports.default = async function (chunk) {
 
 ```typescript
 // my-transform-worker.ts
-import { WorkerTransformFunction } from 'stream-ingestion';
+import { WorkerTransformFunction } from 'henu';
 
 const myTransform: WorkerTransformFunction = async (chunk) => {
   return chunk;
@@ -149,7 +149,7 @@ On abort: the source stream is destroyed, the sink's `abort()` is called for cle
 Implement the `IngestionSink` interface to write anywhere:
 
 ```typescript
-import { IngestionSink } from 'stream-ingestion';
+import { IngestionSink } from 'henu';
 
 const s3Sink: IngestionSink = {
   async write(chunk: Buffer) {
@@ -167,7 +167,7 @@ const s3Sink: IngestionSink = {
 ### Built-in File Sink
 
 ```typescript
-import { createFsSink } from 'stream-ingestion';
+import { createFsSink } from 'henu';
 
 const sink = createFsSink('/path/to/output.bin');
 ```

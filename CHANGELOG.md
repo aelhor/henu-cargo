@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- `ingestStream()` — main function to reliably move data from a Readable stream to an IngestionSink with full lifecycle management
+- `ingestStream()` — main function to reliably move data from a Readable stream to an IngestionSink with full lifecycle management (named **henu** after the sacred Nile cargo boat)
 - `IngestionSink` interface — pluggable sink architecture with `write`, `finalize`, `abort` methods
 - `IngestionOptions` — supports serial transforms, parallel worker-thread processing, AbortSignal cancellation, and `onProgress` callback
 - `IngestionResult` — returns `totalBytes`, `duration`, `status`, `chunksProcessed`, `throughputBytesPerSec`
