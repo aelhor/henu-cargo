@@ -1,6 +1,6 @@
 {
   "name": "henu-cargo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Named after the sacred Nile cargo boat of ancient Egypt, henu carries your data streams safely from source to sink. Backpressure, resource cleanup, cancellation, and ordered parallel processing via worker threads — zero dependencies, built for ETL, file processing, and data-heavy workloads.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
